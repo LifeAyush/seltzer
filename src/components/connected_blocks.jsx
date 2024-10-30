@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 
-const Block = ({ x, y, isDragging, onMouseDown, id }) => {
+const Block = ({ x, y, isDragging, onMouseDown, id, text }) => {
   const blockStyle = {
     position: 'absolute',
-    width: '48px',
-    height: '48px',
+    width: '120px',
+    height: '80px',
     backgroundColor: '#22c55e',
     borderRadius: '4px',
     cursor: 'move',
@@ -12,8 +12,15 @@ const Block = ({ x, y, isDragging, onMouseDown, id }) => {
     boxShadow: isDragging ? '0 10px 15px rgba(0,0,0,0.2)' : '0 4px 6px rgba(0,0,0,0.1)',
     transform: isDragging ? 'scale(1.1)' : 'scale(1)',
     transition: 'transform 0.2s, box-shadow 0.2s',
-    left: x - 24,
-    top: y - 24,
+    left: x - 60,
+    top: y - 40,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '16px',
     touchAction: 'none',
     userSelect: 'none'
   };
@@ -22,7 +29,9 @@ const Block = ({ x, y, isDragging, onMouseDown, id }) => {
     <div
       style={blockStyle}
       onMouseDown={(e) => onMouseDown(e, id)}
-    />
+    >
+      {text}
+    </div>
   );
 };
 
@@ -52,10 +61,7 @@ const ConnectingLine = ({ startPos, endPos }) => {
 };
 
 const ConnectedBlocks = () => {
-  const [blocks, setBlocks] = useState([
-    { id: '0', x: window.innerWidth / 2, y: window.innerHeight / 2, isDragging: false },
-    { id: '1', x: window.innerWidth / 2 + 100, y: window.innerHeight / 2, isDragging: false }
-  ]);
+  const [blocks, setBlocks] = useState([]);
   const [draggedId, setDraggedId] = useState(null);
 
   const handleMouseDown = useCallback((e, id) => {
@@ -90,13 +96,17 @@ const ConnectedBlocks = () => {
   }, [blocks, draggedId]);
 
   const addBlock = () => {
-    const newBlock = {
-      id: blocks.length.toString(),
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      isDragging: false
-    };
-    setBlocks([...blocks, newBlock]);
+    const newBlockText = prompt('Enter block name:');
+    if (newBlockText) {
+      const newBlock = {
+        id: blocks.length.toString(),
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        isDragging: false,
+        text: newBlockText
+      };
+      setBlocks([...blocks, newBlock]);
+    }
   };
 
   React.useEffect(() => {
@@ -166,6 +176,7 @@ const ConnectedBlocks = () => {
           y={block.y}
           isDragging={block.isDragging}
           onMouseDown={handleMouseDown}
+          text={block.text}
         />
       ))}
     </div>
