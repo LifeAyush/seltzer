@@ -1,33 +1,27 @@
-# Getting Started with the Project
+# Seltzer
 
-## Clone Repo
-```ZSH
+A connected-blocks prototype. Blocks connect, and you can type text onto a block.
+
+## Clone
+
+```sh
 git clone https://github.com/LifeAyush/seltzer.git
+cd seltzer
 ```
 
-## Install Dependencies
-```ZSH
+## Run
+
+Install dependencies, then use the scripts in `package.json`:
+
+```sh
 npm install
-```
-
-## Run locally
-```ZSH
 npm start
 ```
 
-## Opens at
-```BROWSER
-localhost:3000
-```
+`npm start` runs `react-scripts start` and serves the app at http://localhost:3000.
 
-## Learn More
+Other scripts from `package.json`:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Copyright
-
-Copyright © 2024 Ayush Patil. All rights reserved.
-
-This project and its contents are protected under applicable copyright laws. Unauthorized copying, modification, distribution, or use of this work is strictly prohibited without express written permission from the copyright holder.
+- `npm run build` runs `react-scripts build`
+- `npm test` runs `react-scripts test`
+- `npm run eject` runs `react-scripts eject`
